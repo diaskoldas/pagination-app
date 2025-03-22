@@ -1,58 +1,130 @@
-<<<<<<< HEAD
-# pagination-app
-=======
-# React + TypeScript + Vite
+# React Pagination Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Компонент пагинации для React-приложений с поддержкой TypeScript, реализованный с использованием ООП и паттерна Observer.
 
-Currently, two official plugins are available:
+## Особенности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔄 Циклическая и линейная пагинация
+- 🎯 Точный контроль над переходами между страницами
+- 🏗 ООП-подход с использованием паттерна Observer
+- 📦 Независимость от фреймворка (core логика)
+- 🔧 Гибкая настройка шага пагинации
+- 💪 Строгая типизация (TypeScript)
+- 🎨 Стилизация с помощью CSS Modules
 
-## Expanding the ESLint configuration
+## Установка
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Использование
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Базовое использование
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```tsx
+import { Pagination } from "@/shared/ui/pagination";
+
+function App() {
+  return <Pagination initialPage={1} totalPages={10} isCyclic={false} />;
+}
 ```
->>>>>>> f92f75b (Реализация проекта с пагинацией)
+
+### Расширенное использование
+
+```tsx
+import { Pagination } from "@/shared/ui/pagination";
+
+function App() {
+  return (
+    <Pagination
+      initialPage={1}
+      totalPages={10}
+      isCyclic={true}
+      nextPagesStepCount={5}
+      prevPagesStepCount={5}
+    />
+  );
+}
+```
+
+### Использование хука
+
+```tsx
+import { usePaginationByClass } from '@/shared/ui/pagination';
+
+function CustomPagination() {
+  const {
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    goToNextPage,
+    goToPrevPage,
+    goToNextPages,
+    goToPrevPages,
+  } = usePaginationByClass({
+    initialPage: 1,
+    totalPages: 10,
+    isCyclic: true,
+    nextPagesStepCount: 5,
+    prevPagesStepCount: 5,
+  });
+
+  return (
+    // Ваша кастомная реализация UI
+  );
+}
+```
+
+## API
+
+### PaginationProps
+
+| Prop               | Тип     | По умолчанию | Описание                        |
+| ------------------ | ------- | ------------ | ------------------------------- |
+| initialPage        | number  | 1            | Начальная страница              |
+| totalPages         | number  | -            | Общее количество страниц        |
+| isCyclic           | boolean | false        | Включение циклической пагинации |
+| nextPagesStepCount | number  | undefined    | Шаг перехода вперед             |
+| prevPagesStepCount | number  | undefined    | Шаг перехода назад              |
+
+### PaginationController
+
+Класс, реализующий логику пагинации:
+
+- Инкапсулированное состояние
+- Паттерн Observer для реактивности
+- Валидация входных данных
+- Независимость от UI-фреймворка
+
+### usePaginationByClass
+
+React-хук для интеграции контроллера пагинации:
+
+- Автоматическое обновление UI
+- Управление жизненным циклом
+- Мемоизация методов
+- Типизированный интерфейс
+
+## Архитектура
+
+Проект построен с использованием следующих паттернов и принципов:
+
+- **ООП**: Инкапсуляция логики в классе `PaginationController`
+- **Observer**: Реактивное обновление состояния
+- **Dependency Injection**: Гибкая конфигурация через пропсы
+- **Single Responsibility**: Разделение логики и представления
+- **Interface Segregation**: Четкие контракты взаимодействия
+
+## Технологии
+
+- React
+- TypeScript
+- Vite
+- CSS Modules
+- SCSS
+
+## Лицензия
+
+MIT
