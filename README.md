@@ -27,7 +27,11 @@ npm run dev
 import { Pagination } from "@/shared/ui/pagination";
 
 function App() {
-  return <Pagination initialPage={1} totalPages={10} isCyclic={false} />;
+  const paginationController = usePagination({
+    initialPage: 1,
+    totalPages: 10,
+  });
+  return <Pagination controller={paginationController} />;
 }
 ```
 
@@ -37,33 +41,25 @@ function App() {
 import { Pagination } from "@/shared/ui/pagination";
 
 function App() {
-  return (
-    <Pagination
-      initialPage={1}
-      totalPages={10}
-      isCyclic={true}
-      nextPagesStepCount={5}
-      prevPagesStepCount={5}
-    />
-  );
+  const paginationController = usePagination({
+    initialPage: 1,
+    totalPages: 10,
+    isCyclic: true,
+    nextPagesStepCount: 3,
+    prevPagesStepCount: 3,
+  });
+
+  return <Pagination controller={paginationController} />;
 }
 ```
 
-### Использование хука
+### Использование хука на базе класса
 
 ```tsx
 import { usePaginationByClass } from '@/shared/ui/pagination';
 
 function CustomPagination() {
-  const {
-    currentPage,
-    totalPages,
-    setCurrentPage,
-    goToNextPage,
-    goToPrevPage,
-    goToNextPages,
-    goToPrevPages,
-  } = usePaginationByClass({
+  const paginationController = usePaginationByClass({
     initialPage: 1,
     totalPages: 10,
     isCyclic: true,
