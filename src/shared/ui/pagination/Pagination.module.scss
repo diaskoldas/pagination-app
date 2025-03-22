@@ -1,0 +1,60 @@
+$primary-color: #646cff;
+$hover-color: #535bf2;
+$disabled-color: #4a4a4a;
+$background-color: #1a1a1a;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    border: 1px solid $primary-color;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(:disabled) {
+      background-color: rgba($primary-color, 0.1);
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgba($primary-color, 0.2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      border-color: $disabled-color;
+      color: $disabled-color;
+      opacity: 0.7;
+    }
+  }
+
+  .pages {
+    display: flex;
+    gap: 4px;
+  }
+
+  .page {
+    &.active {
+      background-color: $primary-color;
+      color: white;
+      outline: 3px solid rgba($primary-color, 0.5);
+      outline-offset: 2px;
+
+      &:hover {
+        background-color: $hover-color;
+        outline-color: rgba($hover-color, 0.5);
+      }
+    }
+  }
+}
